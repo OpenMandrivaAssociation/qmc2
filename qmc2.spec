@@ -1,7 +1,11 @@
-Name:			qmc2
-Version:		0.2.b20
-Release:		%mkrel 0.svn2840
+# sdlmame & sdlmess templates section is commented out because
+# templates are up to date at this moment but sometimes we need to
+# update them from SVN
 
+Name:		qmc2
+Version:	0.35
+Release:	%mkrel 1
+Epoch:		1
 Summary:	M.A.M.E. Catalog / Launcher II
 License:	GPLv2+
 Group:		Emulators
@@ -9,27 +13,20 @@ URL:		http://sourceforge.net/projects/qmc2/
 #alt url	http://qmc2.arcadehits.net/
 Source0:	http://downloads.sourceforge.net/%{name}/%{name}-%{version}.tar.bz2
 #http://qmc2.svn.sourceforge.net/viewvc/qmc2/trunk/data/opt/SDLMAME/template.xml?revision=2835
-Source1:	sdlmame-0.142u4-template.xml
+#Source1:	sdlmame-0.142u4-template.xml
 #http://qmc2.svn.sourceforge.net/viewvc/qmc2/trunk/data/opt/SDLMESS/template.xml?revision=2755
-Source2:	sdlmess-0.142u3-template.xml
+#Source2:	sdlmess-0.142u3-template.xml
 Source10:	qmc2-48.png
-
-BuildRequires:	qt4-devel > 4.5
-%if %mdkversion >= 200900
+BuildRequires:	qt4-devel >= 4:4.7.0
 BuildRequires:	phonon-devel
-%endif
 BuildRequires:	X11-devel
 BuildRequires:	SDL-devel
 BuildRequires:	rsync
-BuildRoot:	%{_tmppath}/%{name}-%{version}
 
 #not requiring non-free
-#Requires:	sdlmame
 Suggests:	sdlmame
 Suggests:	sdlmame-extra-data
 Suggests:	sdlmess
-
-Epoch:		1
 
 %description
 QMC2 is a Qt4 based front-end for SDLMAME and SDLMESS.
@@ -37,11 +34,8 @@ QMC2 is a Qt4 based front-end for SDLMAME and SDLMESS.
 %prep
 %setup -q -n %{name}
 #updates sdlmame & sdlmess templates
-cp -f %{SOURCE1} data/opt/SDLMAME/template.xml
-cp -f %{SOURCE2} data/opt/SDLMESS/template.xml
-
-#fix rights on movie.png
-chmod 644 data/img/classic/movie.png
+#cp -f %{SOURCE1} data/opt/SDLMAME/template.xml
+#cp -f %{SOURCE2} data/opt/SDLMESS/template.xml
 
 %build
 # to debug qmc2, add DEBUG=1 and install the -debug package too.
@@ -51,7 +45,7 @@ chmod 644 data/img/classic/movie.png
  JOYSTICK=1 \
  OPENGL=1 \
  EMULATOR=SDLMESS
-mv qmc2-sdlmess qmc2-sdlmess.bak
+%__mv qmc2-sdlmess qmc2-sdlmess.bak
 make clean QTDIR=%{_prefix}/lib/qt4
 
 %make \
@@ -62,7 +56,7 @@ make clean QTDIR=%{_prefix}/lib/qt4
  EMULATOR=SDLMAME
 
 %install
-rm -rf %{buildroot}
+%__rm -rf %{buildroot}
 %makeinstall \
  PREFIX=%{_prefix} \
  DESTDIR=%{buildroot} \
@@ -70,15 +64,16 @@ rm -rf %{buildroot}
  EMULATOR=SDLMAME
 
 #install qmc2-sdlmess as well
-install -m 755 qmc2-sdlmess.bak %{buildroot}/%{_bindir}/qmc2-sdlmess
+%__install -m 755 qmc2-sdlmess.bak %{buildroot}%{_bindir}/qmc2-sdlmess
 
 #icons
-install -d -m 755 %{buildroot}/%{_iconsdir}
-install -m 644 %{_sourcedir}/qmc2-48.png %{buildroot}/%{_iconsdir}/%{name}.png
+%__install -d -m 755 %{buildroot}%{_iconsdir}
+%__install -m 644 %{SOURCE10} %{buildroot}%{_iconsdir}/%{name}.png
 
 #xdg menus
-install -d -m 755 %{buildroot}%{_datadir}/applications
-cat<<EOF>%{buildroot}%{_datadir}/applications/mandriva-%{name}-sdlmame.desktop
+%__install -d -m 755 %{buildroot}%{_datadir}/applications
+
+%__cat<<EOF>%{buildroot}%{_datadir}/applications/mandriva-%{name}-sdlmame.desktop
 [Desktop Entry]
 Encoding=UTF-8
 Name=QMC2 (SDL MAME)
@@ -89,7 +84,8 @@ Terminal=false
 Type=Application
 Categories=X-MandrivaLinux-MoreApplications-Emulators;Emulator;Game;
 EOF
-cat<<EOF>%{buildroot}%{_datadir}/applications/mandriva-%{name}-sdlmess.desktop
+
+%__cat<<EOF>%{buildroot}%{_datadir}/applications/mandriva-%{name}-sdlmess.desktop
 [Desktop Entry]
 Encoding=UTF-8
 Name=QMC2 (SDL MESS)
@@ -101,7 +97,10 @@ Type=Application
 Categories=X-MandrivaLinux-MoreApplications-Emulators;Emulator;Game;
 EOF
 
-rm -f %{buildroot}%{_datadir}/applications/qmc2-sdlmame.desktop
+%__rm -f %{buildroot}%{_datadir}/applications/qmc2-sdlmame.desktop
+
+%clean
+%__rm -rf %{buildroot}
 
 %files
 %defattr(-,root,root)
@@ -109,13 +108,8 @@ rm -f %{buildroot}%{_datadir}/applications/qmc2-sdlmame.desktop
 %{_bindir}/%{name}
 %{_bindir}/%{name}-sdlmame
 %{_bindir}/%{name}-sdlmess
-#{_bindir}/romalyzer.pl
 %{_datadir}/%{name}
 %{_datadir}/applications/mandriva-%{name}-sdlmame.desktop
 %{_datadir}/applications/mandriva-%{name}-sdlmess.desktop
 %{_iconsdir}/%{name}.png
 %config %{_sysconfdir}/%{name}/%{name}.ini
-
-%clean
-rm -rf %{buildroot}
-
