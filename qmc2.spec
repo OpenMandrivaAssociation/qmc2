@@ -3,7 +3,7 @@
 # update them from SVN
 
 Name:		qmc2
-Version:	0.35
+Version:	0.36
 Release:	%mkrel 1
 Epoch:		1
 Summary:	M.A.M.E. Catalog / Launcher II
@@ -103,7 +103,6 @@ EOF
 %__rm -rf %{buildroot}
 
 %files
-%defattr(-,root,root)
 %{_bindir}/runonce
 %{_bindir}/%{name}
 %{_bindir}/%{name}-sdlmame
