@@ -112,3 +112,84 @@ EOF
 %{_datadir}/applications/mandriva-%{name}-sdlmess.desktop
 %{_iconsdir}/%{name}.png
 %config %{_sysconfdir}/%{name}/%{name}.ini
+
+
+%changelog
+* Wed May 23 2012 Andrey Bondrov <abondrov@mandriva.org> 1:0.36-1
++ Revision: 800176
+- New version 0.36
+
+* Wed Feb 08 2012 Andrey Bondrov <abondrov@mandriva.org> 1:0.35-1
++ Revision: 771908
+- New version 0.35, update BuildRequires, spec cleanup
+
+* Sat Jul 30 2011 Andrey Bondrov <abondrov@mandriva.org> 1:0.2.b20-0.svn2840
++ Revision: 692377
+- imported package qmc2
+
+
+* Tue Jul 19 2011 Andrey Bondrov <bondrov@math.dvgu.ru> 1:0.2.b20-0.svn2840mdv2011.0
+- Import from MIB
+
+* Mon May 30 2011 Andrey Bondrov <bondrov@math.dvgu.ru> 1:0.2.b20-0.svn2840mib2010.2
+- 0.2.b20 (pre, SVN 2840)
+- Update to proper templates (sdlmame 0.142u4 and sdlmess 0.142u3)
+
+* Thu Dec  2 2010 Guillaume Bedot <littletux@zarb.org> 1:0.2.b17-1plf2011.0
+- 0.2.b17
+- Update to latest templates
+
+* Mon May 17 2010 Guillaume Bedot <littletux@zarb.org> 1:0.2.b15-1plf2010.1
+- 0.2.b15 (template for mame 0.138)
+
+* Tue Mar 23 2010 Guillaume Bedot <littletux@zarb.org> 0.2.b14-1plf2010.1
+- 0.2.b14 (templates for mame/mess 0.137)
+
+* Sun Jan 10 2010 Guillaume Bedot <littletux@zarb.org> 1:0.2.b13-1plf2010.1
+- 0.2.b13
+
+* Fri Sep 11 2009 Guillaume Bedot <littletux@zarb.org> 1:0.2.b11-1plf2010.0
+- 0.2.b11
+
+* Sun Sep  6 2009 Guillaume Bedot <littletux@zarb.org> 1:0.2.b10-1plf2010.0
+- 0.2.b10
+- sdlmess 0.133 templates
+
+* Fri Jun 12 2009 Guillaume Bedot <littletux@zarb.org> 1:0.2.b9-1plf2010.0
+- 0.2.b9 (sdlmess template 0.131 update becomes useless)
+- update build requirements
+
+* Mon May 18 2009 Guillaume Bedot <littletux@zarb.org> 1:0.2.b8-2plf2010.0
+- new template for sdlmess 0.131
+
+* Mon Apr 27 2009 Guillaume Bedot <littletux@zarb.org> 1:0.2.b8-1plf2009.1
+- 0.2.b8
+
+* Mon Apr 20 2009 Guillaume Bedot <littletux@zarb.org> 1:0.2.b7-1plf2009.1
+- 0.2.b7
+
+* Thu Jan  8 2009 Guillaume Bedot <littletux@zarb.org> 1:0.2.b6-1plf2009.1
+- 0.2.b6
+- add sdlmess, opengl support
+
+* Tue Oct 21 2008 Guillaume Bedot <littletux@zarb.org> 1:0.2.b5-1plf2009.1
+- 0.2.b5
+- fix build requires, qt dir
+
+* Sat Aug 16 2008 Guillaume Bedot <littletux@zarb.org> 1:0.2.b3-1plf2009.0
+- 0.2.b3
+- no debug
+- drop old menu
+- experimental joystick support
+
+* Wed Feb  6 2008 Guillaume Bedot <littletux@zarb.org> 1:0.1-1plf2008.1
+- 0.1
+
+* Mon Jan 28 2008 Guillaume Bedot <littletux@zarb.org> 0.1.b11-1plf2008.1
+- 0.1.b11
+
+* Sun Jul 29 2007 Guillaume Bedot <littletux@zarb.org> 0.1.b10-1plf2008.0
+- New release
+
+* Tue May 15 2007 Guillaume Bedot <littletux@zarb.org> 0.1.b9-1plf2008.0
+- First package for PLF
