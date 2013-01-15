@@ -3,8 +3,8 @@
 # update them from SVN
 
 Name:		qmc2
-Version:	0.36
-Release:	%mkrel 1
+Version:	0.38
+Release:	2
 Epoch:		1
 Summary:	M.A.M.E. Catalog / Launcher II
 License:	GPLv2+
@@ -18,9 +18,11 @@ Source0:	http://downloads.sourceforge.net/%{name}/%{name}-%{version}.tar.bz2
 #Source2:	sdlmess-0.142u3-template.xml
 Source10:	qmc2-48.png
 BuildRequires:	qt4-devel >= 4:4.7.0
-BuildRequires:	phonon-devel
-BuildRequires:	X11-devel
-BuildRequires:	SDL-devel
+BuildRequires:	pkgconfig(gl)
+BuildRequires:	pkgconfig(phonon)
+BuildRequires:	pkgconfig(sdl)
+BuildRequires:	pkgconfig(x11)
+BuildRequires:	pkgconfig(xmu)
 BuildRequires:	rsync
 
 #not requiring non-free
@@ -55,8 +57,9 @@ make clean QTDIR=%{_prefix}/lib/qt4
  OPENGL=1 \
  EMULATOR=SDLMAME
 
+%make arcade
+
 %install
-%__rm -rf %{buildroot}
 %makeinstall \
  PREFIX=%{_prefix} \
  DESTDIR=%{buildroot} \
@@ -64,11 +67,16 @@ make clean QTDIR=%{_prefix}/lib/qt4
  EMULATOR=SDLMAME
 
 #install qmc2-sdlmess as well
-%__install -m 755 qmc2-sdlmess.bak %{buildroot}%{_bindir}/qmc2-sdlmess
+%__install -m 755 %{name}-sdlmess.bak %{buildroot}%{_bindir}/%{name}-sdlmess
+
+#install qmc2-arcade
+%__install -m 755 arcade/%{name}-arcade %{buildroot}%{_bindir}/%{name}-arcade
+
 
 #icons
 %__install -d -m 755 %{buildroot}%{_iconsdir}
 %__install -m 644 %{SOURCE10} %{buildroot}%{_iconsdir}/%{name}.png
+%__install -m 644 arcade/images/%{name}-arcade.png %{buildroot}%{_iconsdir}/%{name}-arcade.png
 
 #xdg menus
 %__install -d -m 755 %{buildroot}%{_datadir}/applications
@@ -97,99 +105,31 @@ Type=Application
 Categories=X-MandrivaLinux-MoreApplications-Emulators;Emulator;Game;
 EOF
 
-%__rm -f %{buildroot}%{_datadir}/applications/qmc2-sdlmame.desktop
+%__cat<<EOF>%{buildroot}%{_datadir}/applications/mandriva-%{name}-arcade.desktop
+[Desktop Entry]
+Encoding=UTF-8
+Name=QMC2 (Arcade)
+Comment=%{summary}
+Exec=%{_bindir}/%{name}-arcade
+Icon=%{name}-arcade.png
+Terminal=false
+Type=Application
+Categories=X-MandrivaLinux-MoreApplications-Emulators;Emulator;Game;
+EOF
 
-%clean
-%__rm -rf %{buildroot}
+%__rm -f %{buildroot}%{_datadir}/applications/qmc2-sdlmame.desktop
 
 %files
 %{_bindir}/runonce
 %{_bindir}/%{name}
 %{_bindir}/%{name}-sdlmame
 %{_bindir}/%{name}-sdlmess
+%{_bindir}/%{name}-arcade
 %{_datadir}/%{name}
 %{_datadir}/applications/mandriva-%{name}-sdlmame.desktop
 %{_datadir}/applications/mandriva-%{name}-sdlmess.desktop
+%{_datadir}/applications/mandriva-%{name}-arcade.desktop
 %{_iconsdir}/%{name}.png
+%{_iconsdir}/%{name}-arcade.png
 %config %{_sysconfdir}/%{name}/%{name}.ini
 
-
-%changelog
-* Wed May 23 2012 Andrey Bondrov <abondrov@mandriva.org> 1:0.36-1
-+ Revision: 800176
-- New version 0.36
-
-* Wed Feb 08 2012 Andrey Bondrov <abondrov@mandriva.org> 1:0.35-1
-+ Revision: 771908
-- New version 0.35, update BuildRequires, spec cleanup
-
-* Sat Jul 30 2011 Andrey Bondrov <abondrov@mandriva.org> 1:0.2.b20-0.svn2840
-+ Revision: 692377
-- imported package qmc2
-
-
-* Tue Jul 19 2011 Andrey Bondrov <bondrov@math.dvgu.ru> 1:0.2.b20-0.svn2840mdv2011.0
-- Import from MIB
-
-* Mon May 30 2011 Andrey Bondrov <bondrov@math.dvgu.ru> 1:0.2.b20-0.svn2840mib2010.2
-- 0.2.b20 (pre, SVN 2840)
-- Update to proper templates (sdlmame 0.142u4 and sdlmess 0.142u3)
-
-* Thu Dec  2 2010 Guillaume Bedot <littletux@zarb.org> 1:0.2.b17-1plf2011.0
-- 0.2.b17
-- Update to latest templates
-
-* Mon May 17 2010 Guillaume Bedot <littletux@zarb.org> 1:0.2.b15-1plf2010.1
-- 0.2.b15 (template for mame 0.138)
-
-* Tue Mar 23 2010 Guillaume Bedot <littletux@zarb.org> 0.2.b14-1plf2010.1
-- 0.2.b14 (templates for mame/mess 0.137)
-
-* Sun Jan 10 2010 Guillaume Bedot <littletux@zarb.org> 1:0.2.b13-1plf2010.1
-- 0.2.b13
-
-* Fri Sep 11 2009 Guillaume Bedot <littletux@zarb.org> 1:0.2.b11-1plf2010.0
-- 0.2.b11
-
-* Sun Sep  6 2009 Guillaume Bedot <littletux@zarb.org> 1:0.2.b10-1plf2010.0
-- 0.2.b10
-- sdlmess 0.133 templates
-
-* Fri Jun 12 2009 Guillaume Bedot <littletux@zarb.org> 1:0.2.b9-1plf2010.0
-- 0.2.b9 (sdlmess template 0.131 update becomes useless)
-- update build requirements
-
-* Mon May 18 2009 Guillaume Bedot <littletux@zarb.org> 1:0.2.b8-2plf2010.0
-- new template for sdlmess 0.131
-
-* Mon Apr 27 2009 Guillaume Bedot <littletux@zarb.org> 1:0.2.b8-1plf2009.1
-- 0.2.b8
-
-* Mon Apr 20 2009 Guillaume Bedot <littletux@zarb.org> 1:0.2.b7-1plf2009.1
-- 0.2.b7
-
-* Thu Jan  8 2009 Guillaume Bedot <littletux@zarb.org> 1:0.2.b6-1plf2009.1
-- 0.2.b6
-- add sdlmess, opengl support
-
-* Tue Oct 21 2008 Guillaume Bedot <littletux@zarb.org> 1:0.2.b5-1plf2009.1
-- 0.2.b5
-- fix build requires, qt dir
-
-* Sat Aug 16 2008 Guillaume Bedot <littletux@zarb.org> 1:0.2.b3-1plf2009.0
-- 0.2.b3
-- no debug
-- drop old menu
-- experimental joystick support
-
-* Wed Feb  6 2008 Guillaume Bedot <littletux@zarb.org> 1:0.1-1plf2008.1
-- 0.1
-
-* Mon Jan 28 2008 Guillaume Bedot <littletux@zarb.org> 0.1.b11-1plf2008.1
-- 0.1.b11
-
-* Sun Jul 29 2007 Guillaume Bedot <littletux@zarb.org> 0.1.b10-1plf2008.0
-- New release
-
-* Tue May 15 2007 Guillaume Bedot <littletux@zarb.org> 0.1.b9-1plf2008.0
-- First package for PLF
