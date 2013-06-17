@@ -3,8 +3,8 @@
 # update them from SVN
 
 Name:		qmc2
-Version:	0.38
-Release:	2
+Version:	0.39
+Release:	1
 Epoch:		1
 Summary:	M.A.M.E. Catalog / Launcher II
 License:	GPLv2+
@@ -44,20 +44,24 @@ QMC2 is a Qt4 based front-end for SDLMAME and SDLMESS.
 %make \
  QTDIR=%{_prefix}/lib/qt4 \
  PREFIX=%{_prefix} \
+ CXX_FLAGS="%{optflags}" \
  JOYSTICK=1 \
  OPENGL=1 \
  EMULATOR=SDLMESS
-%__mv qmc2-sdlmess qmc2-sdlmess.bak
+mv qmc2-sdlmess qmc2-sdlmess.bak
 make clean QTDIR=%{_prefix}/lib/qt4
 
 %make \
  QTDIR=%{_prefix}/lib/qt4 \
  PREFIX=%{_prefix} \
+ CXX_FLAGS="%{optflags}" \
  JOYSTICK=1 \
  OPENGL=1 \
  EMULATOR=SDLMAME
 
-%make arcade
+%make \
+ CXX_FLAGS="%{optflags}" \
+ arcade
 
 %install
 %makeinstall \
@@ -67,21 +71,20 @@ make clean QTDIR=%{_prefix}/lib/qt4
  EMULATOR=SDLMAME
 
 #install qmc2-sdlmess as well
-%__install -m 755 %{name}-sdlmess.bak %{buildroot}%{_bindir}/%{name}-sdlmess
+install -m 755 %{name}-sdlmess.bak %{buildroot}%{_bindir}/%{name}-sdlmess
 
 #install qmc2-arcade
-%__install -m 755 arcade/%{name}-arcade %{buildroot}%{_bindir}/%{name}-arcade
-
+install -m 755 arcade/%{name}-arcade %{buildroot}%{_bindir}/%{name}-arcade
 
 #icons
-%__install -d -m 755 %{buildroot}%{_iconsdir}
-%__install -m 644 %{SOURCE10} %{buildroot}%{_iconsdir}/%{name}.png
-%__install -m 644 arcade/images/%{name}-arcade.png %{buildroot}%{_iconsdir}/%{name}-arcade.png
+install -d -m 755 %{buildroot}%{_iconsdir}
+install -m 644 %{SOURCE10} %{buildroot}%{_iconsdir}/%{name}.png
+install -m 644 arcade/images/%{name}-arcade.png %{buildroot}%{_iconsdir}/%{name}-arcade.png
 
 #xdg menus
-%__install -d -m 755 %{buildroot}%{_datadir}/applications
+install -d -m 755 %{buildroot}%{_datadir}/applications
 
-%__cat<<EOF>%{buildroot}%{_datadir}/applications/mandriva-%{name}-sdlmame.desktop
+cat<<EOF>%{buildroot}%{_datadir}/applications/mandriva-%{name}-sdlmame.desktop
 [Desktop Entry]
 Encoding=UTF-8
 Name=QMC2 (SDL MAME)
@@ -93,7 +96,7 @@ Type=Application
 Categories=X-MandrivaLinux-MoreApplications-Emulators;Emulator;Game;
 EOF
 
-%__cat<<EOF>%{buildroot}%{_datadir}/applications/mandriva-%{name}-sdlmess.desktop
+cat<<EOF>%{buildroot}%{_datadir}/applications/mandriva-%{name}-sdlmess.desktop
 [Desktop Entry]
 Encoding=UTF-8
 Name=QMC2 (SDL MESS)
@@ -105,7 +108,7 @@ Type=Application
 Categories=X-MandrivaLinux-MoreApplications-Emulators;Emulator;Game;
 EOF
 
-%__cat<<EOF>%{buildroot}%{_datadir}/applications/mandriva-%{name}-arcade.desktop
+cat<<EOF>%{buildroot}%{_datadir}/applications/mandriva-%{name}-arcade.desktop
 [Desktop Entry]
 Encoding=UTF-8
 Name=QMC2 (Arcade)
@@ -117,7 +120,7 @@ Type=Application
 Categories=X-MandrivaLinux-MoreApplications-Emulators;Emulator;Game;
 EOF
 
-%__rm -f %{buildroot}%{_datadir}/applications/qmc2-sdlmame.desktop
+rm -f %{buildroot}%{_datadir}/applications/qmc2-sdlmame.desktop
 
 %files
 %{_bindir}/runonce
