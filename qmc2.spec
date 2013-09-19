@@ -2,11 +2,11 @@
 # templates are up to date at this moment but sometimes we need to
 # update them from SVN
 
+Summary:	M.A.M.E. Catalog / Launcher II
 Name:		qmc2
-Version:	0.39
+Version:	0.40
 Release:	1
 Epoch:		1
-Summary:	M.A.M.E. Catalog / Launcher II
 License:	GPLv2+
 Group:		Emulators
 URL:		http://sourceforge.net/projects/qmc2/
@@ -32,6 +32,23 @@ Suggests:	sdlmess
 
 %description
 QMC2 is a Qt4 based front-end for SDLMAME and SDLMESS.
+
+%files
+%{_bindir}/runonce
+%{_bindir}/%{name}
+%{_bindir}/%{name}-sdlmame
+%{_bindir}/%{name}-sdlmess
+%{_bindir}/%{name}-arcade
+%{_datadir}/%{name}
+%{_datadir}/applications/mandriva-%{name}-sdlmame.desktop
+%{_datadir}/applications/mandriva-%{name}-sdlmess.desktop
+%{_datadir}/applications/mandriva-%{name}-arcade.desktop
+%{_iconsdir}/%{name}.png
+%{_iconsdir}/%{name}-arcade.png
+%config %{_sysconfdir}/%{name}/%{name}.ini
+
+
+#----------------------------------------------------------------------------
 
 %prep
 %setup -q -n %{name}
@@ -121,18 +138,4 @@ Categories=X-MandrivaLinux-MoreApplications-Emulators;Emulator;Game;
 EOF
 
 rm -f %{buildroot}%{_datadir}/applications/qmc2-sdlmame.desktop
-
-%files
-%{_bindir}/runonce
-%{_bindir}/%{name}
-%{_bindir}/%{name}-sdlmame
-%{_bindir}/%{name}-sdlmess
-%{_bindir}/%{name}-arcade
-%{_datadir}/%{name}
-%{_datadir}/applications/mandriva-%{name}-sdlmame.desktop
-%{_datadir}/applications/mandriva-%{name}-sdlmess.desktop
-%{_datadir}/applications/mandriva-%{name}-arcade.desktop
-%{_iconsdir}/%{name}.png
-%{_iconsdir}/%{name}-arcade.png
-%config %{_sysconfdir}/%{name}/%{name}.ini
 
