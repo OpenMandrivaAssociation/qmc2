@@ -4,12 +4,12 @@
 
 Summary:	M.A.M.E. Catalog / Launcher II
 Name:		qmc2
-Version:	0.40
+Version:	0.41
 Release:	1
 Epoch:		1
 License:	GPLv2+
 Group:		Emulators
-URL:		http://sourceforge.net/projects/qmc2/
+Url:		http://sourceforge.net/projects/qmc2/
 #alt url	http://qmc2.arcadehits.net/
 Source0:	http://downloads.sourceforge.net/%{name}/%{name}-%{version}.tar.bz2
 #http://qmc2.svn.sourceforge.net/viewvc/qmc2/trunk/data/opt/SDLMAME/template.xml?revision=2835
@@ -46,7 +46,6 @@ QMC2 is a Qt4 based front-end for SDLMAME and SDLMESS.
 %{_iconsdir}/%{name}.png
 %{_iconsdir}/%{name}-arcade.png
 %config %{_sysconfdir}/%{name}/%{name}.ini
-
 
 #----------------------------------------------------------------------------
 
