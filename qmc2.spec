@@ -20,6 +20,7 @@ Source10:	qmc2-48.png
 BuildRequires:	qt4-devel >= 4:4.7.0
 BuildRequires:	pkgconfig(gl)
 BuildRequires:	pkgconfig(phonon)
+BuildRequires:	pkgconfig(QtWebKit)
 BuildRequires:	pkgconfig(sdl)
 BuildRequires:	pkgconfig(x11)
 BuildRequires:	pkgconfig(xmu)
