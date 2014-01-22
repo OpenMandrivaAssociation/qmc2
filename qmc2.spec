@@ -4,7 +4,7 @@
 
 Summary:	M.A.M.E. Catalog / Launcher II
 Name:		qmc2
-Version:	0.41
+Version:	0.42
 Release:	1
 Epoch:		1
 License:	GPLv2+
