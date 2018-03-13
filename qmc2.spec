@@ -1,11 +1,12 @@
 # sdlmame & sdlmess templates section is commented out because
 # templates are up to date at this moment but sometimes we need to
 # update them from SVN
+%define _disable_lto 1
 
 Summary:	M.A.M.E. Catalog / Launcher II
 Name:		qmc2
-Version:	0.42
-Release:	2
+Version:	0.195
+Release:	1
 Epoch:		1
 License:	GPLv2+
 Group:		Emulators
@@ -17,10 +18,10 @@ Source0:	http://downloads.sourceforge.net/%{name}/%{name}-%{version}.tar.bz2
 #http://qmc2.svn.sourceforge.net/viewvc/qmc2/trunk/data/opt/SDLMESS/template.xml?revision=2755
 #Source2:	sdlmess-0.142u3-template.xml
 Source10:	qmc2-48.png
-BuildRequires:	qt4-devel >= 4:4.7.0
+BuildRequires:	cmake(ECM)
+BuildRequires:	cmake(Qt5Core) cmake(Qt5Gui) cmake(Qt5Xml) cmake(Qt5XmlPatterns) cmake(Qt5WebKit) cmake(Qt5Network) cmake(Qt5Sql) cmake(Qt5Svg) cmake(Qt5Widgets) cmake(Qt5Test) cmake(Qt5WebKitWidgets)
 BuildRequires:	pkgconfig(gl)
 BuildRequires:	pkgconfig(phonon)
-BuildRequires:	pkgconfig(QtWebKit)
 BuildRequires:	pkgconfig(sdl)
 BuildRequires:	pkgconfig(x11)
 BuildRequires:	pkgconfig(xmu)
@@ -32,17 +33,14 @@ Suggests:	sdlmame-extra-data
 Suggests:	sdlmess
 
 %description
-QMC2 is a Qt4 based front-end for SDLMAME and SDLMESS.
+QMC2 is a Qt5 based front-end for SDLMAME and SDLMESS.
 
 %files
-%{_bindir}/runonce
 %{_bindir}/%{name}
 %{_bindir}/%{name}-sdlmame
-%{_bindir}/%{name}-sdlmess
 %{_bindir}/%{name}-arcade
 %{_datadir}/%{name}
 %{_datadir}/applications/mandriva-%{name}-sdlmame.desktop
-%{_datadir}/applications/mandriva-%{name}-sdlmess.desktop
 %{_datadir}/applications/mandriva-%{name}-arcade.desktop
 %{_iconsdir}/%{name}.png
 %{_iconsdir}/%{name}-arcade.png
@@ -57,19 +55,11 @@ QMC2 is a Qt4 based front-end for SDLMAME and SDLMESS.
 #cp -f %{SOURCE2} data/opt/SDLMESS/template.xml
 
 %build
+
+export PATH=%_qt5_bindir:$PATH
 # to debug qmc2, add DEBUG=1 and install the -debug package too.
 %make \
- QTDIR=%{_prefix}/lib/qt4 \
- PREFIX=%{_prefix} \
- CXX_FLAGS="%{optflags}" \
- JOYSTICK=1 \
- OPENGL=1 \
- EMULATOR=SDLMESS
-mv qmc2-sdlmess qmc2-sdlmess.bak
-make clean QTDIR=%{_prefix}/lib/qt4
-
-%make \
- QTDIR=%{_prefix}/lib/qt4 \
+ QTDIR=%{_qt5_libdir}/qt5 \
  PREFIX=%{_prefix} \
  CXX_FLAGS="%{optflags}" \
  JOYSTICK=1 \
@@ -86,9 +76,6 @@ make clean QTDIR=%{_prefix}/lib/qt4
  DESTDIR=%{buildroot} \
  QTDIR=%{_prefix}/lib/qt4 \
  EMULATOR=SDLMAME
-
-#install qmc2-sdlmess as well
-install -m 755 %{name}-sdlmess.bak %{buildroot}%{_bindir}/%{name}-sdlmess
 
 #install qmc2-arcade
 install -m 755 arcade/%{name}-arcade %{buildroot}%{_bindir}/%{name}-arcade
@@ -107,18 +94,6 @@ Encoding=UTF-8
 Name=QMC2 (SDL MAME)
 Comment=%{summary}
 Exec=%{_bindir}/%{name}-sdlmame
-Icon=%{name}
-Terminal=false
-Type=Application
-Categories=X-MandrivaLinux-MoreApplications-Emulators;Emulator;Game;
-EOF
-
-cat<<EOF>%{buildroot}%{_datadir}/applications/mandriva-%{name}-sdlmess.desktop
-[Desktop Entry]
-Encoding=UTF-8
-Name=QMC2 (SDL MESS)
-Comment=%{summary}
-Exec=%{_bindir}/%{name}-sdlmess
 Icon=%{name}
 Terminal=false
 Type=Application

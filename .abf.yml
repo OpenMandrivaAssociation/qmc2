@@ -1,2 +1,5 @@
-sources:
+removed_sources:
   qmc2-0.42.tar.bz2: 86d5935e0e623b9bc7cf537105d286acce3d9e55
+sources:
+  qmc2-0.195.tar.bz2: ca45afefc474c9192a7a4b2b9f089e6cfc3302e4
+  qmc2-48.png: 4e8c117a913a31232f0c6d5ab839f5ae8114160e
