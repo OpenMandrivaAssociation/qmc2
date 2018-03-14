@@ -19,7 +19,7 @@ Source0:	http://downloads.sourceforge.net/%{name}/%{name}-%{version}.tar.bz2
 #Source2:	sdlmess-0.142u3-template.xml
 Source10:	qmc2-48.png
 BuildRequires:	cmake(ECM)
-BuildRequires:	cmake(Qt5Core) cmake(Qt5Gui) cmake(Qt5Xml) cmake(Qt5XmlPatterns) cmake(Qt5WebKit) cmake(Qt5Network) cmake(Qt5Sql) cmake(Qt5Svg) cmake(Qt5Widgets) cmake(Qt5Test) cmake(Qt5WebKitWidgets)
+BuildRequires:	cmake(Qt5Core) cmake(Qt5Gui) cmake(Qt5Xml) cmake(Qt5XmlPatterns) cmake(Qt5WebKit) cmake(Qt5Network) cmake(Qt5Sql) cmake(Qt5Svg) cmake(Qt5Widgets) cmake(Qt5Test) cmake(Qt5WebKitWidgets) cmake(Qt5Multimedia) cmake(Qt5MultimediaWidgets)
 BuildRequires:	pkgconfig(gl)
 BuildRequires:	pkgconfig(phonon)
 BuildRequires:	pkgconfig(sdl2)
