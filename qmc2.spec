@@ -22,7 +22,7 @@ BuildRequires:	cmake(ECM)
 BuildRequires:	cmake(Qt5Core) cmake(Qt5Gui) cmake(Qt5Xml) cmake(Qt5XmlPatterns) cmake(Qt5WebKit) cmake(Qt5Network) cmake(Qt5Sql) cmake(Qt5Svg) cmake(Qt5Widgets) cmake(Qt5Test) cmake(Qt5WebKitWidgets)
 BuildRequires:	pkgconfig(gl)
 BuildRequires:	pkgconfig(phonon)
-BuildRequires:	pkgconfig(sdl)
+BuildRequires:	pkgconfig(sdl2)
 BuildRequires:	pkgconfig(x11)
 BuildRequires:	pkgconfig(xmu)
 BuildRequires:	rsync
