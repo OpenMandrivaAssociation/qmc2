@@ -10,7 +10,7 @@ Release:	1
 Epoch:		1
 License:	GPLv2+
 Group:		Emulators
-Url:		http://sourceforge.net/projects/qmc2/
+Url:		https://sourceforge.net/projects/qmc2/
 #alt url	http://qmc2.arcadehits.net/
 Source0:	http://downloads.sourceforge.net/%{name}/%{name}-%{version}.tar.bz2
 #http://qmc2.svn.sourceforge.net/viewvc/qmc2/trunk/data/opt/SDLMAME/template.xml?revision=2835
